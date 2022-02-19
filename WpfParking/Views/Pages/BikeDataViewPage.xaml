@@ -1,0 +1,58 @@
+﻿<Page x:Class="WpfParking.Views.Pages.BikeDataViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfParking.Views.Pages"
+      Loaded="Page_Loaded"
+      FontSize="16"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Список объектов на парковке">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ComboBox Name="CMBStatus" Width="200" Height="25"  Margin="10,0" HorizontalAlignment="Right" SelectionChanged="CMBStatus_SelectionChanged">
+                <ComboBoxItem>списан</ComboBoxItem>
+                <ComboBoxItem>на парковке</ComboBoxItem>
+            </ComboBox>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Поиск:"></TextBlock>
+                <TextBox Name="Search" Width="250" Margin="10,0" TextChanged="Search_TextChanged"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button Content="История" Name="ArchiveButton" Click="ArchiveButton_Click" Width="150" Margin="10,0"></Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Name="DataBikeView">
+            <Grid Grid.Row="1">
+                <DataGrid Name="Data" AutoGenerateColumns="False" ColumnWidth="*" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="30"/>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Title}"/>
+                        <DataGridTextColumn Header="Владелец" Binding="{Binding Client.GetName}"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status.Title}"/>
+                        <DataGridTextColumn Header="Тип велосипеда" Binding="{Binding Type.Title}"/>
+                        <DataGridTextColumn Header="Дата парковки" Binding="{Binding RecordingDate}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Grid Name="GridNoResult" Visibility="Collapsed" Grid.Row="1">
+                <TextBlock Text="Парковка пуста" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" FontWeight="SemiBold"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="Добавить" Name="AddButton" Click="AddButton_Click" Width="250" Margin="10,0"></Button>
+                <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click" Width="250" Margin="5,0"></Button>
+                <Button Content="Удалить" Name="DeleteButton" Click="DeleteButton_Click" Width="250" Margin="10,0,0,0"></Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
